@@ -62,6 +62,16 @@
                     </a>
                 </li>
             @endcan
+            @can('exam_access')
+                <li class="nav-item">
+                    <a href="{{ route("admin.exams.index") }}" class="nav-link {{ request()->is('admin/exams') || request()->is('admin/exams/*') ? 'active' : '' }}">
+                        <i class="fa-fw fas fa-folder-open nav-icon">
+
+                        </i>
+                        Exams
+                    </a>
+                </li>
+            @endcan
             @can('question_access')
                 <li class="nav-item">
                     <a href="{{ route("admin.questions.index") }}" class="nav-link {{ request()->is('admin/questions') || request()->is('admin/questions/*') ? 'active' : '' }}">

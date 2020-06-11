@@ -5,11 +5,13 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Category extends Model
+
+class Exam extends Model
 {
     use SoftDeletes;
 
-    public $table = 'categories';
+    public $table = 'exams';
+
 
     protected $dates = [
         'created_at',
@@ -18,14 +20,22 @@ class Category extends Model
     ];
 
     protected $fillable = [
-        'name',
+        'title',
+        'description',
+        'image',
+        'category_id',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
 
-    public function categoryExams()
+    public function examQuestions()
     {
-        return $this->hasMany(Exam::class, 'category_id', 'id');
+        return $this->hasMany(Question::class, 'exam_id', 'id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
     }
 }

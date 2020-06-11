@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Category;
+use App\Exam;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyQuestionRequest;
 use App\Http\Requests\StoreQuestionRequest;
@@ -19,6 +19,8 @@ class QuestionsController extends Controller
         abort_if(Gate::denies('question_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $questions = Question::all();
+
+        
 
         return view('admin.questions.index', compact('questions'));
     }

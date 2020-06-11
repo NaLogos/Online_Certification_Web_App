@@ -9,9 +9,9 @@ class AddRelationshipFieldsToQuestionsTable extends Migration
     public function up()
     {
         Schema::table('questions', function (Blueprint $table) {
-            $table->unsignedInteger('category_id');
+            $table->unsignedInteger('exam_id');
 
-            $table->foreign('category_id', 'category_fk_773713')->references('id')->on('categories');
+            $table->foreign('exam_id', 'exam_fk_773714')->references('id')->on('exams');
         });
     }
 }

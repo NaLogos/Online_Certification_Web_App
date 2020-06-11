@@ -1,6 +1,6 @@
 <?php
 
-use App\Category;
+use App\Exam;
 use Illuminate\Database\Seeder;
 
 class QuestionsTableSeeder extends Seeder
@@ -13,13 +13,13 @@ class QuestionsTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker\Factory::create();
-        $categories = Category::all();
+        $exams = Exam::all();
 
-        foreach($categories as $category)
+        foreach($exams as $exam)
         {
-            foreach(range(1,2) as $index)
+            foreach(range(1,5) as $index)
             {
-                $category->categoryQuestions()->create([
+                $exam->examQuestions()->create([
                     'question_text' => $faker->sentence(4)
                 ]);
             }

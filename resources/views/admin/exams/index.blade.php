@@ -1,35 +1,38 @@
 @extends('layouts.admin')
 @section('content')
-@can('question_create')
+@can('exam_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route("admin.questions.create") }}">
-                {{ trans('global.add') }} {{ trans('cruds.question.title_singular') }}
+            <a class="btn btn-success" href="{{ route("admin.exams.create") }}">
+                Add Exam
             </a>
         </div>
     </div>
 @endcan
 <div class="card">
     <div class="card-header">
-        {{ trans('cruds.question.title_singular') }} {{ trans('global.list') }}
+        Exam List
     </div>
 
     <div class="card-body">
         <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-Question">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-Category">
                 <thead>
                     <tr>
                         <th width="10">
 
                         </th>
                         <th>
-                            {{ trans('cruds.question.fields.id') }}
+                            ID
                         </th>
                         <th>
-                            Exam
+                            Category
                         </th>
                         <th>
-                            {{ trans('cruds.question.fields.question_text') }}
+                            Title
+                        </th>
+                        <th>
+                            Description
                         </th>
                         <th>
                             &nbsp;
@@ -37,35 +40,38 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($questions as $key => $question)
-                        <tr data-entry-id="{{ $question->id }}">
+                    @foreach($exams as $key => $exam)
+                        <tr data-entry-id="{{ $exam->id }}">
                             <td>
 
                             </td>
                             <td>
-                                {{ $question->id ?? '' }}
+                                {{ $exam->id ?? '' }}
                             </td>
                             <td>
-                                {{ $question->exam->title ?? '' }}
+                                {{ $exam->category->name ?? '' }}
                             </td>
                             <td>
-                                {{ $question->question_text ?? '' }}
+                                {{ $exam->title ?? '' }}
                             </td>
                             <td>
-                                @can('question_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.questions.show', $question->id) }}">
+                                {{ $exam->description ?? '' }}
+                            </td>
+                            <td>
+                                @can('exam_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.categories.show', $exam->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
                                 @endcan
 
-                                @can('question_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.questions.edit', $question->id) }}">
+                                @can('exam_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.categories.edit', $exam->id) }}">
                                         {{ trans('global.edit') }}
                                     </a>
                                 @endcan
 
-                                @can('question_delete')
-                                    <form action="{{ route('admin.questions.destroy', $question->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                @can('exam_delete')
+                                    <form action="{{ route('admin.categories.destroy', $exam->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
@@ -90,11 +96,11 @@
 <script>
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('question_delete')
+@can('exam_delete')
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.questions.massDestroy') }}",
+    url: "{{ route('admin.categories.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
@@ -124,7 +130,7 @@
     order: [[ 1, 'desc' ]],
     pageLength: 100,
   });
-  $('.datatable-Question:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  $('.datatable-Category:not(.ajaxTable)').DataTable({ buttons: dtButtons })
     $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
         $($.fn.dataTable.tables(true)).DataTable()
             .columns.adjust();

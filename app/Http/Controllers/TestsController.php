@@ -10,16 +10,17 @@ class TestsController extends Controller
 {
     public function index()
     {
-        $categories = Category::with(['categoryQuestions' => function ($query) {
-                $query->inRandomOrder()
-                    ->with(['questionOptions' => function ($query) {
-                        $query->inRandomOrder();
-                    }]);
-            }])
-            ->whereHas('categoryQuestions')
-            ->get();
+        // $categories = Category::with(['categoryQuestions' => function ($query) {
+        //         $query->inRandomOrder()
+        //             ->with(['questionOptions' => function ($query) {
+        //                 $query->inRandomOrder();
+        //             }]);
+        //     }])
+        //     ->whereHas('categoryQuestions')
+        //     ->get();
 
-            return view('client.examList', compact('categories'));
+            // return view('client.examList', compact('categories'));
+            return view('client.examList');
     }
 
     public function store(StoreTestRequest $request)

@@ -21,7 +21,7 @@ class Question extends Model
         'created_at',
         'updated_at',
         'deleted_at',
-        'category_id',
+        'exam_id',
         'question_text',
     ];
 
@@ -35,8 +35,8 @@ class Question extends Model
         return $this->belongsToMany(Result::class);
     }
 
-    public function category()
+    public function exam()
     {
-        return $this->belongsTo(Category::class, 'category_id');
+        return $this->belongsTo(Exam::class, 'exam_id');
     }
 }

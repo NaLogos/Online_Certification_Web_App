@@ -22,7 +22,7 @@ class OptionsTableSeeder extends Seeder
             foreach(range(1,4) as $index)
             {
                 $question->questionOptions()->create([
-                    'option_text' => $faker->unique()->word,
+                    'option_text' => $faker->word,
                     'points' => $index == $correctOption ? 1 : 0,
                 ]);
             }

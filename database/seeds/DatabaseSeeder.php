@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
             UsersTableSeeder::class,
             RoleUserTableSeeder::class,
             CategoriesTableSeeder::class,
+            ExamsSeeder::class,
             QuestionsTableSeeder::class,
             OptionsTableSeeder::class,
         ]);
