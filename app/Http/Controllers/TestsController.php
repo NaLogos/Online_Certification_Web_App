@@ -19,7 +19,7 @@ class TestsController extends Controller
             ->whereHas('categoryQuestions')
             ->get();
 
-        return view('client.test', compact('categories'));
+            return view('client.examList', compact('categories'));
     }
 
     public function store(StoreTestRequest $request)

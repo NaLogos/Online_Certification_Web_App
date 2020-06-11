@@ -15,7 +15,7 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    You are logged in Mr/Ms {{$userName}}!
                 </div>
             </div>
         </div>

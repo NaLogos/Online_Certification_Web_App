@@ -10,7 +10,7 @@ class CheckIfAdmin
 {
     public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::guard($guard)->check() && auth()->user()->is_admin) {
+        if (Auth::guard($guard)->check() && (auth()->user()->is_admin || auth()->user()->is_expert)) {
             return $next($request);
         }
 

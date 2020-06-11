@@ -18,7 +18,7 @@ class HomeController extends Controller
 
     public function redirect()
     {
-        if (auth()->user()->is_admin) {
+        if (auth()->user()->is_admin || auth()->user()->is_expert) {
             return redirect()->route('admin.home')->with('status', session('status'));
         }
 
