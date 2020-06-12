@@ -2,16 +2,16 @@
 
 namespace App\Http\Requests;
 
-use App\Question;
+use App\Exam;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Symfony\Component\HttpFoundation\Response;
 
-class StoreQuestionRequest extends FormRequest
+class UpdateExamRequest extends FormRequest
 {
     public function authorize()
     {
-        abort_if(Gate::denies('question_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('exam_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return true;
     }
@@ -19,13 +19,17 @@ class StoreQuestionRequest extends FormRequest
     public function rules()
     {
         return [
-            'exam_id'   => [
+            'exam_title' => [
+                'required',
+            ],
+            'exam_description' => [
+                'required',
+            ],
+            'category_id'   => [
                 'required',
                 'integer',
             ],
-            'question_text' => [
-                'required',
-            ],
+            
         ];
     }
 }

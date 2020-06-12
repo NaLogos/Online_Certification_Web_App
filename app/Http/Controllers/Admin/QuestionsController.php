@@ -29,9 +29,9 @@ class QuestionsController extends Controller
     {
         abort_if(Gate::denies('question_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $categories = Category::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $exams = Exam::all()->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.questions.create', compact('categories'));
+        return view('admin.questions.create', compact('exams'));
     }
 
     public function store(StoreQuestionRequest $request)
@@ -45,11 +45,11 @@ class QuestionsController extends Controller
     {
         abort_if(Gate::denies('question_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $categories = Category::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $exams = Exam::all()->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $question->load('category');
+        $question->load('exam');
 
-        return view('admin.questions.edit', compact('categories', 'question'));
+        return view('admin.questions.edit', compact('exams', 'question'));
     }
 
     public function update(UpdateQuestionRequest $request, Question $question)
@@ -63,7 +63,7 @@ class QuestionsController extends Controller
     {
         abort_if(Gate::denies('question_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $question->load('category');
+        $question->load('exam');
 
         return view('admin.questions.show', compact('question'));
     }

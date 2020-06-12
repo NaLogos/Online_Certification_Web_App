@@ -25,10 +25,10 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.question.fields.category') }}
+                            Exam
                         </th>
                         <td>
-                            {{ $question->category->name ?? '' }}
+                            {{ $question->exam->title ?? '' }}
                         </td>
                     </tr>
                     <tr>

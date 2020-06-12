@@ -35,6 +35,9 @@
                             Description
                         </th>
                         <th>
+                            Image
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -58,20 +61,23 @@
                                 {{ $exam->description ?? '' }}
                             </td>
                             <td>
+                                <img src="{{asset($exam->image)}}" width="120px" height="80px" alt="img"/>
+                            </td>
+                            <td>
                                 @can('exam_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.categories.show', $exam->id) }}">
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.exams.show', $exam->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
                                 @endcan
 
                                 @can('exam_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.categories.edit', $exam->id) }}">
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.exams.edit', $exam->id) }}">
                                         {{ trans('global.edit') }}
                                     </a>
                                 @endcan
 
                                 @can('exam_delete')
-                                    <form action="{{ route('admin.categories.destroy', $exam->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                    <form action="{{ route('admin.exams.destroy', $exam->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
@@ -100,7 +106,7 @@
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.categories.massDestroy') }}",
+    url: "{{ route('admin.exams.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {

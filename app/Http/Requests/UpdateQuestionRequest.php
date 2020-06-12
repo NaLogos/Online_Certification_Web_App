@@ -19,7 +19,7 @@ class UpdateQuestionRequest extends FormRequest
     public function rules()
     {
         return [
-            'category_id'   => [
+            'exam_id'   => [
                 'required',
                 'integer',
             ],

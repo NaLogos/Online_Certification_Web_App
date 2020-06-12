@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 
 class Exam extends Model
@@ -29,6 +30,12 @@ class Exam extends Model
         'deleted_at',
     ];
 
+    public function deleteImage(){
+        if(Storage::exists(substr($this->image,8))){
+            Storage::delete(substr($this->image,8));
+        }
+    }
+    
     public function examQuestions()
     {
         return $this->hasMany(Question::class, 'exam_id', 'id');
