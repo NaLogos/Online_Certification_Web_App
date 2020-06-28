@@ -13,9 +13,18 @@ class CreateResultsTable extends Migration
 
             $table->integer('total_points')->nullable();
 
+            $table->unsignedInteger('user_id');
+
+            $table->foreign('user_id', 'user_fk_773765')->references('id')->on('users');
+
             $table->timestamps();
 
             $table->softDeletes();
         });
+    }
+
+    public function down()
+    {
+        Schema::dropIfExists('results');
     }
 }

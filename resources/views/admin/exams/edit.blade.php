@@ -30,6 +30,11 @@
                 <input class="form-control {{ $errors->has('exam_title') ? 'is-invalid' : '' }}" name="exam_title" id="exam_title"  type="text" value="{{ old('exam_title', $exam->title) }}">
             </div>
 
+            <div class="form-group">
+                <label for="sessions">Sessions</label>
+                <input name="sessions" id="sessions" class="form-control" type="text" value="">
+            </div>
+
             
             <div class="form-group">
                 <img src="{{asset($exam->image)}}" alt="" style="width:100%">
@@ -63,4 +68,20 @@
 
 
 
+@endsection
+
+@section('styles')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+@endsection
+
+@section('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        flatpickr('#sessions',{
+            enableTime: true,
+            enableSeconds: true,
+            mode: "multiple",
+            })
+
+    </script>
 @endsection

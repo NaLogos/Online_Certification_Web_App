@@ -45,4 +45,14 @@ class Exam extends Model
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
+
+    public function sessions()
+    {
+        return $this->belongsToMany(Session::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }

@@ -92,6 +92,11 @@ class User extends Authenticatable
     }
 
     public function getIsExpertAttribute(){
-        return $this->roles()->where('id',3)->exists();
+        return $this->roles()->where('id',2)->exists();
+    }
+
+    public function exams()
+    {
+        return $this->belongsToMany(Exam::class);
     }
 }

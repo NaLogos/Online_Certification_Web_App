@@ -24,4 +24,9 @@ class CreateQuestionResultPivotTable extends Migration
             $table->integer('points')->default(0);
         });
     }
+
+    public function down()
+    {
+        Schema::dropIfExists('question_result');
+    }
 }

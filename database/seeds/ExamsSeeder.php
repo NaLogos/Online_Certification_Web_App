@@ -22,9 +22,11 @@ class ExamsSeeder extends Seeder
                 $category->categoryExams()->create([
                     'title' => $faker->sentence(3),
                     'description' => $faker->text(20),
-                    'image' => 'default'
+                    'image' => 'storage/exams/'.$index.'.png'
                 ]);
             }
         }
+
+
     }
 }

@@ -41,6 +41,22 @@
                     </tr>
                     <tr>
                         <th>
+                            Exam Planned Sessions
+                        </th>
+                        <td>
+                            <table class="table table-bordered table-striped">
+                                <tbody>
+                                    @foreach($exam->sessions as $session)
+                                        <td>
+                                            {{$session->active_at}}
+                                        </td>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             Exam Image
                         </th>
                         <td>

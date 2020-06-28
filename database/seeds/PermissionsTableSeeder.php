@@ -94,64 +94,84 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => '22',
-                'title' => 'question_create',
+                'title' => 'exam_create',
             ],
             [
                 'id'    => '23',
-                'title' => 'question_edit',
+                'title' => 'exam_edit',
             ],
             [
                 'id'    => '24',
-                'title' => 'question_show',
+                'title' => 'exam_show',
             ],
             [
                 'id'    => '25',
-                'title' => 'question_delete',
+                'title' => 'exam_delete',
             ],
             [
                 'id'    => '26',
-                'title' => 'question_access',
+                'title' => 'exam_access',
             ],
             [
                 'id'    => '27',
-                'title' => 'option_create',
+                'title' => 'question_create',
             ],
             [
                 'id'    => '28',
-                'title' => 'option_edit',
+                'title' => 'question_edit',
             ],
             [
                 'id'    => '29',
-                'title' => 'option_show',
+                'title' => 'question_show',
             ],
             [
                 'id'    => '30',
-                'title' => 'option_delete',
+                'title' => 'question_delete',
             ],
             [
                 'id'    => '31',
-                'title' => 'option_access',
+                'title' => 'question_access',
             ],
             [
                 'id'    => '32',
-                'title' => 'result_create',
+                'title' => 'option_create',
             ],
             [
                 'id'    => '33',
-                'title' => 'result_edit',
+                'title' => 'option_edit',
             ],
             [
                 'id'    => '34',
-                'title' => 'result_show',
+                'title' => 'option_show',
             ],
             [
                 'id'    => '35',
-                'title' => 'result_delete',
+                'title' => 'option_delete',
             ],
             [
                 'id'    => '36',
-                'title' => 'result_access',
+                'title' => 'option_access',
             ],
+            [
+                'id'    => '37',
+                'title' => 'result_create',
+            ],
+            [
+                'id'    => '38',
+                'title' => 'result_edit',
+            ],
+            [
+                'id'    => '39',
+                'title' => 'result_show',
+            ],
+            [
+                'id'    => '40',
+                'title' => 'result_delete',
+            ],
+            [
+                'id'    => '41',
+                'title' => 'result_access',
+            ],    
         ];
 
         Permission::insert($permissions);

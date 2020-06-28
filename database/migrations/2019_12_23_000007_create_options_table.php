@@ -15,9 +15,18 @@ class CreateOptionsTable extends Migration
 
             $table->integer('points')->nullable();
 
+            $table->unsignedInteger('question_id');
+
+            $table->foreign('question_id', 'question_fk_773758')->references('id')->on('questions');
+
             $table->timestamps();
 
             $table->softDeletes();
         });
+    }
+
+    public function down()
+    {
+        Schema::dropIfExists('options');
     }
 }

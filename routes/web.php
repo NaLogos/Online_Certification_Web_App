@@ -1,7 +1,7 @@
 <?php
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('login');
 });
 // User
 Route::group(['as' => 'client.', 'middleware' => ['auth']], function () {
@@ -14,7 +14,7 @@ Route::group(['as' => 'client.', 'middleware' => ['auth']], function () {
     
     Route::get('browse','BrowseExamsController@index')->name('browse');
 
-    Route::get('test', 'TestsController@index')->name('test');
+    Route::get('test/{exam}', 'TestsController@index')->name('test');
     Route::post('test', 'TestsController@store')->name('test.store');
     
     Route::get('results/{result_id}', 'ResultsController@show')->name('results.show');

@@ -36,8 +36,9 @@
                 @foreach($exams as $exam)
                 
                     <div class="col-md-6">
+                    
                     <div class="card border hover-shadow-6 mb-6 d-block">
-                        <a href=""><img class="card-img-top" src="{{ asset($exam->image) }}" alt="Card image cap"></a>
+                        <a href="{{ route('client.test', $exam->id) }}"><img class="card-img-top" src="{{ asset($exam->image) }}" alt="Card image cap"></a>
                         <div class="p-6 text-center">
                         
                             <p>
@@ -51,6 +52,35 @@
                                     {{$exam->title}}
                                 </a>
                             </h5>
+
+                            @if(!$exam->sessions->isEmpty())
+                              <div class="dropdown mt-2">
+                                
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  Available Sessions
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                  <form action="">
+                                    
+                                    @foreach($exam->sessions as $session)
+                                      <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                                        <label class="form-check-label" for="exampleRadios1">
+                                          {{$session->active_at}}
+                                        </label>
+                                      </div>
+                                    @endforeach
+                                    
+                                    <button class="btn btn-sm btn-block btn-primary mt-4">Confirm registration</button>
+                                  </form>
+                              
+                                </div>
+                              </div>
+                            @else
+                              <button class="btn btn-secondary dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false" disabled>
+                                No Available Sessions
+                              </button>
+                            @endif
                         
                         </div>
                     </div>
@@ -131,6 +161,46 @@
         </div>
       </div>
     </main>
+
+    <!-- Subscribe 3 -->
+    <div class="modal fade" id="modal-subscribe-3" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content bg-img bg-img-bottom" style="background-image: url({{ asset('img/9.jpg') }})">
+
+          <div class="modal-body text-white">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="row">
+              <div class="col-md-8 ml-auto">
+                <form class="input-glass p-5 p-md-7">
+                  <h2>Register for a Session</h2>
+                  <p class="lead-1">Want to be the first informed about the hottest discounts and promotions? <strong>Subscribe Now!</strong></p>
+                  <hr class="w-10">
+                  <div class="input-group input-group-lg">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                    <label class="form-check-label" for="exampleRadios1">
+                      Default radio
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                    <label class="form-check-label" for="exampleRadios1">
+                      Default radio
+                    </label>
+                  </div>
+                  <button type="button" class="btn btn-success">Success</button>
+                  </div>
+                </form>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
 @endsection
 
 

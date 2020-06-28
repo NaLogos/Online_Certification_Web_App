@@ -1,26 +1,20 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Category;
-use App\Http\Requests\StoreTestRequest;
 use App\Option;
+use App\Question;
+use App\Exam;
+use App\Http\Requests\StoreTestRequest;
+use Illuminate\Support\Arr;
+
 
 class TestsController extends Controller
 {
-    public function index()
+    public function index(Exam $exam)
     {
-        // $categories = Category::with(['categoryQuestions' => function ($query) {
-        //         $query->inRandomOrder()
-        //             ->with(['questionOptions' => function ($query) {
-        //                 $query->inRandomOrder();
-        //             }]);
-        //     }])
-        //     ->whereHas('categoryQuestions')
-        //     ->get();
-
-            // return view('client.examList', compact('categories'));
-            return view('client.examList');
+            $randomQestions = $exam->examQuestions->random(3);
+            return view('client.takeExam', compact('exam','randomQestions'));
+            
     }
 
     public function store(StoreTestRequest $request)

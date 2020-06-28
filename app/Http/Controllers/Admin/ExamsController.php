@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
+
 use App\Exam;
+use App\Session;
 use App\Category;
 use Illuminate\Http\Request;
 
@@ -59,6 +62,24 @@ class ExamsController extends Controller
             'image' => "storage/".$exam_image,
             'category_id' => $request->category_id
         ]);
+
+        if($request->sessions){
+            $data = array();
+            $sessions_arr = explode(', ',$request->sessions);
+            foreach($sessions_arr as $session){
+                $qry = Session::firstWhere('active_at',$session);
+                if(!$qry){
+                    $rec = Session::create([
+                        'active_at' => $session
+                    ]);
+                    array_push($data,$rec->id);
+                }else{
+                    array_push($data,$qry->id);
+                }    
+            }
+            $exam->sessions()->syncWithoutDetaching($data);
+            
+        }
 
         return redirect()->route('admin.exams.index');
     }
@@ -132,6 +153,24 @@ class ExamsController extends Controller
             'description' => $data['exam_description'],
             'category_id' => $data['category_id']
         ]);
+
+        if($request->sessions){
+            $data = array();
+            $sessions_arr = explode(', ',$request->sessions);
+            foreach($sessions_arr as $session){
+                $qry = Session::firstWhere('active_at',$session);
+                if(!$qry){
+                    $rec = Session::create([
+                        'active_at' => $session
+                    ]);
+                    array_push($data,$rec->id);
+                }else{
+                    array_push($data,$qry->id);
+                }    
+            }
+            $exam->sessions()->syncWithoutDetaching($data);
+            
+        }
         
 
         return redirect()->route('admin.exams.index');

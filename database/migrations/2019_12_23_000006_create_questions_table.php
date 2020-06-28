@@ -13,9 +13,18 @@ class CreateQuestionsTable extends Migration
 
             $table->longText('question_text');
 
+            $table->unsignedInteger('exam_id');
+
+            $table->foreign('exam_id', 'exam_fk_773714')->references('id')->on('exams');
+
             $table->timestamps();
 
             $table->softDeletes();
         });
+    }
+
+    public function down()
+    {
+        Schema::dropIfExists('questions');
     }
 }
