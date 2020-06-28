@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateExamUserPivotTable extends Migration
+class CreateExamSessionUserPivotTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateExamUserPivotTable extends Migration
      */
     public function up()
     {
-        Schema::table('exam_user', function (Blueprint $table) {
+        Schema::create('exam_session_user', function (Blueprint $table) {
             $table->unsignedInteger('user_id');
 
             $table->foreign('user_id', 'user_id_fk_2')->references('id')->on('users')->onDelete('cascade');
@@ -21,6 +21,10 @@ class CreateExamUserPivotTable extends Migration
             $table->unsignedInteger('exam_id');
 
             $table->foreign('exam_id', 'exam_id_fk_2')->references('id')->on('exams')->onDelete('cascade');
+            
+            $table->unsignedInteger('session_id');
+
+            $table->foreign('session_id', 'session_id_fk_2')->references('id')->on('sessions')->onDelete('cascade');
         });
     }
 
@@ -31,6 +35,8 @@ class CreateExamUserPivotTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('exam_user');
+        Schema::table('exam_session_user', function (Blueprint $table) {
+            Schema::dropIfExists('exam_session_user');
+        });
     }
 }

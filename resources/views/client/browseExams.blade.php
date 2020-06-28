@@ -59,12 +59,18 @@
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                   Available Sessions
                                 </button>
+                                @if(session()->has('success'))
+                                    <div class="alert alert-success mt-3">
+                                        {{ session()->get('success') }}
+                                    </div>
+                                @endif
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                  <form action="">
-                                    
+                                  <form action="{{route('client.registering')}}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="exam" value="{{ $exam->id }}">
                                     @foreach($exam->sessions as $session)
                                       <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                                        <input class="form-check-input" type="radio" name="session" id="session" value="{{$session->id}}" checked>
                                         <label class="form-check-label" for="exampleRadios1">
                                           {{$session->active_at}}
                                         </label>

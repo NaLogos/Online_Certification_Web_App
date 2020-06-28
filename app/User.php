@@ -97,6 +97,11 @@ class User extends Authenticatable
 
     public function exams()
     {
-        return $this->belongsToMany(Exam::class);
+        return $this->belongsToMany(Exam::class, 'exam_session_user');
+    }
+
+    public function sessions()
+    {
+        return $this->belongsToMany(Session::class, 'exam_session_user');
     }
 }

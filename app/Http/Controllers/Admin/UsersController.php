@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyUserRequest;
 use App\Http\Requests\StoreUserRequest;
@@ -83,4 +84,6 @@ class UsersController extends Controller
 
         return response(null, Response::HTTP_NO_CONTENT);
     }
+
+    
 }

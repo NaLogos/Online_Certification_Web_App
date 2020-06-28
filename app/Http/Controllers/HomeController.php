@@ -13,6 +13,22 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // $user = auth()->user();
+        
+        // $exams = $user->exams;
+        
+
+
+        // foreach($exams as $exam){
+        //     $a = $exam->id;
+        //     $x = $user->whereHas('exam_session_user',function($query)use($a){
+        //         $query->where('exam_session_user.exam_id','=',$a);
+        //     });
+    
+        //     dd($x);
+        // }
+        
+        // return view('client.home', compact('user', 'sessions', 'exams'));
         return view('client.home');
     }
 
