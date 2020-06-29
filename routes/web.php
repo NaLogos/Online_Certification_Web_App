@@ -13,9 +13,9 @@ Route::group(['as' => 'client.', 'middleware' => ['auth']], function () {
     Route::post('change-password', 'ChangePasswordController@update')->name('password.update');
     
     Route::get('browse','BrowseExamsController@index')->name('browse');
-    Route::post('registering','BrowseExamsController@register')->name('registering');
+    Route::post('registering','BrowseExamsController@registering')->name('registering');
 
-    Route::get('test/{exam}', 'TestsController@index')->name('test');
+    Route::get('test/{session}', 'TestsController@index')->name('test');
     Route::post('test', 'TestsController@store')->name('test.store');
     
     Route::get('results/{result_id}', 'ResultsController@show')->name('results.show');

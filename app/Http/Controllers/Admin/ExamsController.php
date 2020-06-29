@@ -63,23 +63,37 @@ class ExamsController extends Controller
             'category_id' => $request->category_id
         ]);
 
+        
         if($request->sessions){
-            $data = array();
             $sessions_arr = explode(', ',$request->sessions);
             foreach($sessions_arr as $session){
-                $qry = Session::firstWhere('active_at',$session);
-                if(!$qry){
-                    $rec = Session::create([
-                        'active_at' => $session
-                    ]);
-                    array_push($data,$rec->id);
-                }else{
-                    array_push($data,$qry->id);
-                }    
+                $rec = Session::create([
+                    'active_at' => $session,
+                    'exam_id'   => $exam->id
+                ]);   
             }
-            $exam->sessions()->syncWithoutDetaching($data);
             
         }
+        
+        
+        // Case of exam_session_user_pivot_table
+        // if($request->sessions){
+        //     $data = array();
+        //     $sessions_arr = explode(', ',$request->sessions);
+        //     foreach($sessions_arr as $session){
+        //         $qry = Session::firstWhere('active_at',$session);
+        //         if(!$qry){
+        //             $rec = Session::create([
+        //                 'active_at' => $session
+        //             ]);
+        //             array_push($data,$rec->id);
+        //         }else{
+        //             array_push($data,$qry->id);
+        //         }    
+        //     }
+        //     $exam->sessions()->syncWithoutDetaching($data);
+            
+        // }
 
         return redirect()->route('admin.exams.index');
     }
@@ -153,27 +167,22 @@ class ExamsController extends Controller
             'description' => $data['exam_description'],
             'category_id' => $data['category_id']
         ]);
-
+        
         if($request->sessions){
-            $data = array();
             $sessions_arr = explode(', ',$request->sessions);
             foreach($sessions_arr as $session){
-                $qry = Session::firstWhere('active_at',$session);
+                $qry = Session::firstWhere('active_at', '=', $session, 'AND', 'exam_id', '=',$exam->id);
                 if(!$qry){
                     $rec = Session::create([
-                        'active_at' => $session
+                        'active_at' => $session,
+                        'exam_id'   => $exam->id
                     ]);
-                    array_push($data,$rec->id);
-                }else{
-                    array_push($data,$qry->id);
-                }    
+                }
             }
-            $exam->sessions()->syncWithoutDetaching($data);
-            
-        }
         
 
         return redirect()->route('admin.exams.index');
+        }
     }
 
     /**

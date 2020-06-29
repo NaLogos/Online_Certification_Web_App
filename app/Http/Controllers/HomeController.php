@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+
+
 class HomeController extends Controller
 {
     /**
@@ -13,23 +15,27 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // $user = auth()->user();
+        $twoHoursAgo = date('Y-m-d H:i:s',strtotime('-1 hours'));  //Adjusting for the +1 hour diffrence between date() methode and time in morocco
+        $now = date('Y-m-d H:i:s',strtotime('+1 hours'));     
         
-        // $exams = $user->exams;
+        $user = auth()->user();
         
+        $upcomingSessions = $user->sessions->where('active_at', '>', $now);
+        
+        $currentSessions = $user->sessions->whereBetween('active_at', array($twoHoursAgo,$now));
+        $currentUntakenSessions = array();
+        foreach($currentSessions as $session){
+            if(!$session->sessionResults->first()){
+                array_push($currentUntakenSessions, $session);
+            }
+        }
 
-
-        // foreach($exams as $exam){
-        //     $a = $exam->id;
-        //     $x = $user->whereHas('exam_session_user',function($query)use($a){
-        //         $query->where('exam_session_user.exam_id','=',$a);
-        //     });
+     
+        $results = $user->userResults;
     
-        //     dd($x);
-        // }
         
-        // return view('client.home', compact('user', 'sessions', 'exams'));
-        return view('client.home');
+        return view('client.home', compact('user', 'results', 'upcomingSessions', 'currentUntakenSessions'));
+
     }
 
     public function redirect()

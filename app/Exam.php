@@ -46,13 +46,14 @@ class Exam extends Model
         return $this->belongsTo(Category::class, 'category_id');
     }
 
-    public function sessions()
+    public function examSessions()
     {
-        return $this->belongsToMany(Session::class);
+        return $this->hasMany(Session::class, 'exam_id', 'id');
+    }
+    
+    public function activeSessions()
+    {
+        return $this->hasMany(Session::class, 'exam_id', 'id')->where('active_at', '>=', now());
     }
 
-    public function users()
-    {
-        return $this->belongsToMany(User::class);
-    }
 }

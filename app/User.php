@@ -95,13 +95,9 @@ class User extends Authenticatable
         return $this->roles()->where('id',2)->exists();
     }
 
-    public function exams()
-    {
-        return $this->belongsToMany(Exam::class, 'exam_session_user');
-    }
 
     public function sessions()
     {
-        return $this->belongsToMany(Session::class, 'exam_session_user');
+        return $this->belongsToMany(Session::class);
     }
 }

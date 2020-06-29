@@ -46,7 +46,7 @@
                         <td>
                             <table class="table table-bordered table-striped">
                                 <tbody>
-                                    @foreach($exam->sessions as $session)
+                                    @foreach($exam->examSessions as $session)
                                         <td>
                                             {{$session->active_at}}
                                         </td>

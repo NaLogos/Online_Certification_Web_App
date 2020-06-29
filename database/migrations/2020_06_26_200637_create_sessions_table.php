@@ -16,6 +16,8 @@ class CreateSessionsTable extends Migration
         Schema::create('sessions', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamp('active_at');
+            $table->unsignedInteger('exam_id');
+            $table->foreign('exam_id', 'exam_fk_69')->references('id')->on('exams');
             $table->timestamps();
             $table->softDeletes();
         });

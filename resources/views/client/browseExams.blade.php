@@ -33,12 +33,18 @@
             <div class="col-md-8 col-xl-9">
               <div class="row gap-y">
 
+              @if(session()->has('success'))
+                                    <div class="alert alert-success mt-3">
+                                        {{ session()->get('success') }}
+                                    </div>
+                                @endif
+
                 @foreach($exams as $exam)
                 
                     <div class="col-md-6">
                     
                     <div class="card border hover-shadow-6 mb-6 d-block">
-                        <a href="{{ route('client.test', $exam->id) }}"><img class="card-img-top" src="{{ asset($exam->image) }}" alt="Card image cap"></a>
+                        <a href=""><img class="card-img-top" src="{{ asset($exam->image) }}" alt="Card image cap"></a>
                         <div class="p-6 text-center">
                         
                             <p>
@@ -53,22 +59,19 @@
                                 </a>
                             </h5>
 
-                            @if(!$exam->sessions->isEmpty())
+                            @if(!$exam->activeSessions->isEmpty())
                               <div class="dropdown mt-2">
                                 
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                   Available Sessions
                                 </button>
-                                @if(session()->has('success'))
-                                    <div class="alert alert-success mt-3">
-                                        {{ session()->get('success') }}
-                                    </div>
-                                @endif
+                                
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                   <form action="{{route('client.registering')}}" method="POST">
                                     @csrf
-                                    <input type="hidden" name="exam" value="{{ $exam->id }}">
-                                    @foreach($exam->sessions as $session)
+                              
+                                    @foreach($exam->activeSessions as $session)
+                                      <input type="hidden" name="exam_id" value="{{ $session->exam->id }}">
                                       <div class="form-check">
                                         <input class="form-check-input" type="radio" name="session" id="session" value="{{$session->id}}" checked>
                                         <label class="form-check-label" for="exampleRadios1">

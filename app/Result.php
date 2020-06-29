@@ -19,6 +19,7 @@ class Result extends Model
 
     protected $fillable = [
         'user_id',
+        'session_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -34,4 +35,10 @@ class Result extends Model
     {
         return $this->belongsToMany(Question::class)->withPivot(['option_id', 'points']);
     }
+
+    public function session()
+    {
+        return $this->belongsTo(Session::class, 'session_id');
+    }
+
 }

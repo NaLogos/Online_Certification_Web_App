@@ -12,16 +12,23 @@ class BrowseExamsController extends Controller
     public function index(){
         $exams = Exam::all();
         $categories = Category::all();
-        dd($exams->sessions);
         return view('client.browseExams', compact('exams','categories'));
     }
 
     public function registering(Request $request)
     {
+        
         $user = Auth::user();
-        $exam = Exam::find($request->exam);
-        $user->exams()->sync($exam, array('session_id'=>$request->session));
+        $oldSession = $user->sessions->where('exam_id', '=', $request->exam_id)->first();
+        if($oldSession){
+            if( $oldSession->id != $request->session ){
+                $user->sessions()->toggle([$oldSession->id, $request->session]);
+            }
+        }else{
+            $user->sessions()->attach($request->session);
+        }
+        
         session()->flash('success', 'Registered Successfully');
-        return redirect('browse');
+        return redirect()->back();
     }
 }

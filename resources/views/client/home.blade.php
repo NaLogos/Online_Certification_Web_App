@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
+            <div class="card mb-3">
                 <div class="card-header">Dashboard</div>
 
                 <div class="card-body">
@@ -22,69 +22,189 @@
                 </div>
             </div>
 
-            <div class="card card-default">
-                <div class="card-header">
-                    Posts
-                </div>
-                <div class="card-body">
-                    @if($exams->count() > 0)
+            @if(count($currentUntakenSessions) > 0)
+                <div class="card card-default">
+                    <div class="card-header">
+                        Current Sessions
+                    </div>
+                    <div class="card-body">
+                        
                         <table class="table">
                             <thead>
                                 <th>Image</th>
                                 <th>Title</th>
                                 <th>Category</th>
-                                <th>Sessions</th>
+                                <th>Session</th>
                                 <th></th>
                             </thead>
 
 
                             <tbody>
-                                @foreach($ses as $post)
+                                @foreach($currentUntakenSessions as $session)
                                     <tr>
                                         <td>
-                                            <img src="{{asset($post->image)}}" width="120px" height="80px" alt="img"/>
+                                            <img src="{{asset($session->exam->image)}}" width="120px" height="80px" alt="img"/>
                                         </td>
                                         <td>
-                                            {{ $post->title }}
+                                            {{ $session->exam->title }}
                                         </td>
                                         <td>
-                                            <a href="{{ route('categories.edit', $post->category->id) }}">
-                                                {{ $post->category->name }}
+                                            <a href="">
+                                                {{ $session->exam->category->name }}
                                             </a>
                                         </td>
-                                        @if($post->trashed())
                                             <td>
-                                                <form action="{{route('restore-post',$post->id)}}" method="POST">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <button type="submit" class="btn btn-info btn-sm">Restore</button>
-                                                </form>
+                                                {{date_format($session->active_at, 'g:ia \o\n l jS F Y')}}
                                             </td>
-                                        @else
-                                            <td>
-                                                <a href="{{route('posts.edit',$post->id)}}" class="btn btn-info btn-sm">Edit</a>
-                                            </td>
-                                        @endif
+                                        
                                         <td>
-                                            <form action="{{route('posts.destroy',$post->id)}}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm">
-                                                    {{ $post->trashed() ? 'Delete' : 'Trash' }}
-                                                </button>
-                                            </form>
+                                            <a href="{{ route('client.test', $session->id) }}" class="btn btn-success btn-sm">Pass Exam</a>
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
-                    @elseif(isset($trashed))
-                        <h3 class="text-center">No Trashed Posts</h3>
-                    @else
-                        <h3 class="text-center">No Posts Yet</h3> 
-                    @endif
+                        
+                    </div>
                 </div>
-            </div>
+            
+            @endif
+
+
+            @if($upcomingSessions->count() > 0)
+                <div class="card card-default  mt-4">
+                    <div class="card-header">
+                        Upcoming Sessions
+                    </div>
+                    <div class="card-body">
+                        
+                        <table class="table">
+                            <thead>
+                                <th>Image</th>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Session</th>
+                                <th></th>
+                            </thead>
+
+
+                            <tbody>
+                                @foreach($upcomingSessions as $session)
+                                    <tr>
+                                        <td>
+                                            <img src="{{asset($session->exam->image)}}" width="120px" height="80px" alt="img"/>
+                                        </td>
+                                        <td>
+                                            {{ $session->exam->title }}
+                                        </td>
+                                        <td>
+                                            <a href="">
+                                                {{ $session->exam->category->name }}
+                                            </a>
+                                        </td>
+                                        
+                                        <td>
+                                            {{date_format($session->active_at, 'g:ia \o\n l jS F Y')}}
+                                        </td>
+                                        
+                                        <td>
+                                            <div class="dropdown mt-2">
+                                
+                                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Change Sessions
+                                                </button>
+                                                
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <form action="{{route('client.registering')}}" method="POST">
+                                                    @csrf
+                                            
+                                                    @foreach($session->exam->activeSessions as $session)
+                                                    <input type="hidden" name="exam_id" value="{{ $session->exam->id }}">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="session" id="session" value="{{$session->id}}" checked>
+                                                        <label class="form-check-label" for="exampleRadios1">
+                                                        {{$session->active_at}}
+                                                        </label>
+                                                    </div>
+                                                    @endforeach
+                                                    
+                                                    <button class="btn btn-sm btn-block btn-primary mt-4">Confirm registration</button>
+                                                </form>
+                                            
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                </div>
+            @else
+                <div class="card card-default mb-4">
+                    <div class="card-body">
+                        <h3 class="text-center">You have no upcoming exams</h3> 
+                    </div>
+                </div>    
+            @endif
+
+
+            @if($results->count() > 0)
+                <div class="card card-default mt-4">
+                    <div class="card-header">
+                        Past Sessions
+                    </div>
+                    <div class="card-body">
+                        
+                        <table class="table">
+                            <thead>
+                                <th>Image</th>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Session</th>
+                                <th>Score</th>
+                                
+                            </thead>
+
+
+                            <tbody>
+                                @foreach($results as $result)
+                                    <tr>
+                                        <td>
+                                            <img src="{{asset($result->session->exam->image)}}" width="120px" height="80px" alt="img"/>
+                                        </td>
+                                        <td>
+                                            {{ $result->session->exam->title }}
+                                        </td>
+                                        <td>
+                                            <a href="">
+                                                {{ $result->session->exam->category->name }}
+                                            </a>
+                                        </td>
+                                        
+                                        <td>
+                                            {{date_format($result->session->active_at, 'g:ia \o\n l jS F Y')}}
+                                        </td>
+                                        
+                                        <td>
+                                            {{$result->total_points}}
+                                        </td>
+
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                </div>
+            @else
+                <div class="card card-default mt-4">
+                    <div class="card-body">
+                        <h3 class="text-center">You have no past exams</h3> 
+                    </div>
+                </div>
+            @endif
 
         </div>
     </div>

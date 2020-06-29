@@ -20,13 +20,28 @@ class Session extends Model
 
     protected $fillable = [
         'active_at',
+        'exam_id',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
 
-    public function sessionsExams()
+
+    public function exam()
     {
-        return $this->belongsToMany(Exam::class);
+        return $this->belongsTo(Exam::class, 'exam_id');
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
+
+    public function sessionResults()
+    {
+        return $this->hasMany(Result::class, 'session_id', 'id');
+    }
+
+    
 }

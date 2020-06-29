@@ -20,9 +20,9 @@
 
                     <form method="POST" action="{{ route('client.test.store') }}">
                         @csrf
-                        
+                        <input type="hidden" name="session_id" value="{{$session->id}}">
                             <div class="card mb-3">
-                                <div class="card-header">{{ $exam->title }}</div>
+                                <div class="card-header">{{ $session->exam->title }}</div>
                 
                                 <div class="card-body">
                                     @foreach($randomQestions as $question)
