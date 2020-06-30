@@ -11,10 +11,17 @@
             @csrf
             <div class="form-group">
                 <label class="required" for="category_id">Category</label>
-                <select class="form-control select2 {{ $errors->has('category') ? 'is-invalid' : '' }}" name="category_id" id="category_id" required>
-                    @foreach($categories as $id => $category)
-                        <option value="{{ $id }}" {{ old('category_id') == $id ? 'selected' : '' }}>{{ $category }}</option>
-                    @endforeach
+                    @if(count($categories) > 0)
+                        <select name="category_id" id="category_id" class="form-control tag-selector2 {{ $errors->has('category') ? 'is-invalid' : '' }}" required>
+                            @foreach($categories as $id => $category)
+                                <option value="{{$id}}">
+                                    {{$category}}
+                                </option>
+                            @endforeach
+                        </select>
+                    @else
+                        <h2 class="form-control">No Tags Available</h2>
+                    @endif
                 </select>
                 @if($errors->has('category_id'))
                     <div class="invalid-feedback">
@@ -22,6 +29,21 @@
                     </div>
                 @endif
                 <span class="help-block"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="tags">Tags</label>
+                @if(count($tags) > 0)
+                    <select name="tags[]" id="tags" class="form-control tag-selector2" multiple>
+                        @foreach($tags as $id => $tag)
+                            <option value="{{$id}}">
+                                {{$tag}}
+                            </option>
+                        @endforeach
+                    </select>
+                @else
+                    <h2 class="form-control">No Tags Available</h2>
+                @endif
             </div>
             
             <div class="form-group">
@@ -71,16 +93,22 @@
 
 @section('styles')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
 @endsection
 
 @section('scripts')
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
     <script>
         flatpickr('#sessions',{
             enableTime: true,
             enableSeconds: true,
             mode: "multiple",
             })
+
+         $(document).ready(function() {
+            $('.tag-selector2').select2();
+        });
 
     </script>
 @endsection

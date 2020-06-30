@@ -37,8 +37,18 @@
         <section class="navbar-mobile">
           <span class="navbar-divider d-mobile-none"></span>
         </section>
- 
-
+        @guest
+          <a class="btn btn-sm btn-round btn-success ml-4" href="/login">Log In</a>
+          <a class="btn btn-sm btn-round btn-light ml-4" href="/register">Register</a>
+        @endguest
+        @auth
+          <a class="btn btn-sm btn-round btn-success mr-4" href="/dashboard">Dashboard</a>
+          <form method="POST" action="{{ route('logout') }}">
+          @csrf
+          <button class="btn btn-sm btn-round btn-info " type="submit">Logout</button>
+        </form>
+        @endauth
+        
       </div>
     </nav><!-- /.navbar -->
 

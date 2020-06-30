@@ -25,6 +25,14 @@
                     </tr>
                     <tr>
                         <th>
+                            Exam Title
+                        </th>
+                        <td>
+                            {{ $exam->title }}
+                        </td>
+                    </tr>                 
+                    <tr>
+                        <th>
                             Category
                         </th>
                         <td>
@@ -33,22 +41,30 @@
                     </tr>
                     <tr>
                         <th>
-                            Exam Title
+                            Related Tags
                         </th>
                         <td>
-                            {{ $exam->title }}
+                            <table class="table table-bordered table-striped">
+                                <tbody>
+                                    @foreach($exam->tags as $tag)
+                                        <td  style="text-align:center">
+                                            {{$tag->name}}
+                                        </td>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            Exam Planned Sessions
+                            Planned Sessions
                         </th>
                         <td>
                             <table class="table table-bordered table-striped">
                                 <tbody>
                                     @foreach($exam->examSessions as $session)
-                                        <td>
-                                            {{$session->active_at}}
+                                        <td style="text-align:center">
+                                            {{date_format($session->active_at, 'g:ia \o\n l jS F Y')}}
                                         </td>
                                     @endforeach
                                 </tbody>
@@ -60,7 +76,7 @@
                             Exam Image
                         </th>
                         <td>
-                            <img src="{{asset($exam->image)}}" alt="img"/>
+                            <img style="max-width: 100%;max-height: 100%"  src="{{asset($exam->image)}}" alt="img"/>
                         </td>
                     </tr>
                     <tr>

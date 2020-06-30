@@ -15,7 +15,7 @@ class AddSessionIdToResultsTable extends Migration
     {
         Schema::table('results', function (Blueprint $table) {
             $table->unsignedInteger('session_id');
-            $table->foreign('session_id', 'session_fk_69')->references('id')->on('sessions');
+            $table->foreign('session_id', 'results_session_id_foreign')->references('id')->on('sessions')->onDelete('cascade');
         });
     }
 
@@ -27,6 +27,7 @@ class AddSessionIdToResultsTable extends Migration
     public function down()
     {
         Schema::table('results', function (Blueprint $table) {
+            $table->dropForeign(['session_id']);
             $table->dropColumn('session_id');
         });
     }

@@ -1,8 +1,11 @@
 <?php
 
-Route::get('/', function () {
-    return redirect('login');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::get('exam/categories/{category}', 'BrowseExamsController@category')->name('exam.category');
+Route::get('exam/tags/{tag}', 'BrowseExamsController@tag')->name('exam.tag');
+Route::get('/','BrowseExamsController@index')->name('browse');
 // User
 Route::group(['as' => 'client.', 'middleware' => ['auth']], function () {
     
@@ -12,7 +15,7 @@ Route::group(['as' => 'client.', 'middleware' => ['auth']], function () {
     Route::get('change-password', 'ChangePasswordController@create')->name('password.create');
     Route::post('change-password', 'ChangePasswordController@update')->name('password.update');
     
-    Route::get('browse','BrowseExamsController@index')->name('browse');
+ 
     Route::post('registering','BrowseExamsController@registering')->name('registering');
 
     Route::get('test/{session}', 'TestsController@index')->name('test');
@@ -43,6 +46,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('categories/destroy', 'CategoriesController@massDestroy')->name('categories.massDestroy');
     Route::resource('categories', 'CategoriesController');
 
+    // Tags
+    Route::delete('tags/destroy', 'TagsController@massDestroy')->name('tags.massDestroy');
+    Route::resource('tags', 'TagsController');
+    
     // Exams
     Route::delete('exams/destroy', 'ExamsController@massDestroy')->name('exams.massDestroy');
     Route::resource('exams', 'ExamsController');

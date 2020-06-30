@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Carbon\Carbon;
 
+use App\Tag;
 use App\Exam;
 use App\Session;
 use App\Category;
@@ -41,9 +42,11 @@ class ExamsController extends Controller
     {
         abort_if(Gate::denies('exam_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $categories = Category::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $categories = Category::all()->pluck('name', 'id');
 
-        return view('admin.exams.create', compact('categories'));
+        $tags = Tag::all()->pluck('name', 'id');
+
+        return view('admin.exams.create', compact('categories', 'tags'));
     }
 
     /**
@@ -54,7 +57,10 @@ class ExamsController extends Controller
      */
     public function store(StoreExamRequest $request)
     {
-        $exam_image = $request->exam_image->store('exams');
+        if($request->exam_image){
+            $exam_image = $request->exam_image->store('exams');    
+        }
+        
         
         $exam = Exam::create([
             'title' => $request->exam_title,
@@ -73,6 +79,10 @@ class ExamsController extends Controller
                 ]);   
             }
             
+        }
+
+        if($request->tags){
+            $exam->tags()->attach($request->tags);
         }
         
         
@@ -123,11 +133,17 @@ class ExamsController extends Controller
     {
         abort_if(Gate::denies('exam_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $categories = Category::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $categories = Category::all();
+
+        $tags = Tag::all();
 
         $exam->load('category');
 
-        return view('admin.exams.edit', compact('categories', 'exam'));
+        $session_arr = array();
+        foreach($exam->examSessions as $session){
+            array_push($session_arr, $session->toArray()['active_at']);
+        }
+        return view('admin.exams.edit', compact('categories', 'exam', 'tags', 'session_arr'));
     }
 
     /**
@@ -140,8 +156,9 @@ class ExamsController extends Controller
     public function update(UpdateExamRequest $request, Exam $exam)
     {
         //fetching request data using only() instead of all() for security reasons
+        
         $data = $request->only(['exam_title','exam_description','category_id']);
-
+        
         //check if there's a new image 
         if($request->hasFile('exam_image')){
             //upload it
@@ -155,11 +172,17 @@ class ExamsController extends Controller
                 'image'       => "storage/".$exam_image
             ]);
         }
+        
+       if($request->tags){
+           $exam->tags()->sync($request->tags);
+       }
 
-    //    if($request->tags){
-    //        $post->tags()->sync($request->tags);
-    //    }
-
+       if($request->discarded_sessions){
+           foreach($request->discarded_sessions as $session){
+                $exam->examSessions->where('id', '=', $session)->first()->delete();  
+           }
+        }
+       
         //update attributes
         
         $exam->update([
@@ -180,9 +203,10 @@ class ExamsController extends Controller
                 }
             }
         
-
-        return redirect()->route('admin.exams.index');
+           
+        
         }
+        return redirect()->route('admin.exams.index');
     }
 
     /**

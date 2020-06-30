@@ -154,22 +154,42 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => '37',
-                'title' => 'result_create',
+                'title' => 'tag_create',
             ],
             [
                 'id'    => '38',
-                'title' => 'result_edit',
+                'title' => 'tag_edit',
             ],
             [
                 'id'    => '39',
-                'title' => 'result_show',
+                'title' => 'tag_show',
             ],
             [
                 'id'    => '40',
-                'title' => 'result_delete',
+                'title' => 'tag_delete',
             ],
             [
                 'id'    => '41',
+                'title' => 'tag_access',
+            ], 
+            [
+                'id'    => '42',
+                'title' => 'result_create',
+            ],
+            [
+                'id'    => '43',
+                'title' => 'result_edit',
+            ],
+            [
+                'id'    => '44',
+                'title' => 'result_show',
+            ],
+            [
+                'id'    => '45',
+                'title' => 'result_delete',
+            ],
+            [
+                'id'    => '46',
                 'title' => 'result_access',
             ],    
         ];

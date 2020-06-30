@@ -62,6 +62,16 @@
                     </a>
                 </li>
             @endcan
+            @can('tag_access')
+                <li class="nav-item">
+                    <a href="{{ route("admin.tags.index") }}" class="nav-link {{ request()->is('admin/tags') || request()->is('admin/tags/*') ? 'active' : '' }}">
+                        <i class="fa-fw fas fa-tags nav-icon">
+
+                        </i>
+                        Tags
+                    </a>
+                </li>
+            @endcan
             @can('exam_access')
                 <li class="nav-item">
                     <a href="{{ route("admin.exams.index") }}" class="nav-link {{ request()->is('admin/exams') || request()->is('admin/exams/*') ? 'active' : '' }}">

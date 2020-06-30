@@ -6,13 +6,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Exam;
 use App\Category;
+use App\Tag;
 
 class BrowseExamsController extends Controller
 {
     public function index(){
-        $exams = Exam::all();
+        $exams = Exam::searched()->simplePaginate(6);
         $categories = Category::all();
-        return view('client.browseExams', compact('exams','categories'));
+        $tags = Tag::all();
+        return view('client.browseExams', compact('exams','categories', 'tags'));
     }
 
     public function registering(Request $request)
@@ -30,5 +32,20 @@ class BrowseExamsController extends Controller
         
         session()->flash('success', 'Registered Successfully');
         return redirect()->back();
+    }
+
+    public function category(Category $category){
+    
+        $exams = $category->categoryExams()->searched()->simplePaginate(6);
+        $categories = Category::all();
+        $tags = Tag::all();
+        return view('exam.category', compact('category', 'exams', 'categories', 'tags'));
+    }
+
+    public function tag(Tag $tag){
+        $exams = $tag->exams()->searched()->simplepaginate(6);
+        $categories = Category::all();
+        $tags = Tag::all();
+        return view('exam.tag', compact('tag', 'exams', 'categories', 'tags'));
     }
 }
