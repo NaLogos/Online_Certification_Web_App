@@ -1,20 +1,9 @@
-# Laravel Quiz/Test Project with PDF Results
+## Laravel Project
 
-Quite typical project where user goes through some set of questions - quiz, survey, assessment or similar.
-
-They get the result of how many points they've got, and then get the PDF report via email.
+An Online Certification Wab App built using Laravel & MySQL, Admin/Expert is able to create exams, a candidate is able to pick one of the available sessions to take the associated exam and get a certificate
 
 - - - - -
 
-## Screenshots 
-
-![Laravel Quiz/Test Form](https://laraveldaily.com/wp-content/uploads/2020/01/Screen-Shot-2020-01-06-at-3.26.01-PM.png)
-
-![Laravel Quiz/Test Result Email](https://laraveldaily.com/wp-content/uploads/2020/01/Screen-Shot-2020-01-06-at-3.26.23-PM.png)
-
-![Laravel Quiz/Test Result PDF](https://laraveldaily.com/wp-content/uploads/2020/01/Screen-Shot-2020-01-06-at-3.26.12-PM.png)
-
-- - - - -
 
 ## How to use
 
@@ -24,7 +13,7 @@ They get the result of how many points they've got, and then get the PDF report 
 - Run __php artisan key:generate__
 - Run __php artisan migrate --seed__ (it has some seeded data for your testing)
 - That's it: launch the main URL. 
-- You can login to adminpanel by going go `/login` URL and login with credentials __admin@admin.com__ - __password__
+- You can login to admin/expert panel with credentials __admin@admin.com__/__expert@expert.com__ - __password__
 - Click __Register__ to register as new user and start the test
 
 
@@ -34,12 +23,3 @@ They get the result of how many points they've got, and then get the PDF report 
 
 Basically, feel free to use and re-use any way you want.
 
-- - - - -
-
-## More from our LaravelDaily Team
-
-- Check out our adminpanel generator [QuickAdminPanel](https://quickadminpanel.com)
-- Read our [Blog with Laravel Tutorials](https://laraveldaily.com)
-- FREE E-book: [50 Laravel Quick Tips (and counting)](https://laraveldaily.com/free-e-book-40-laravel-quick-tips-and-counting/)
-- Subscribe to our [YouTube channel Laravel Business](https://www.youtube.com/channel/UCTuplgOBi6tJIlesIboymGA)
-- Enroll in our [Laravel Online Courses](https://laraveldaily.teachable.com/)
