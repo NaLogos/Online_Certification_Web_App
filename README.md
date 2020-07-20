@@ -6,19 +6,19 @@ An Online Certification Wab App built using Laravel & MySQL, Admin/Expert is abl
 
 ## Screenshots
 
-![Alt text](screenshots/1.png?raw=true "")
-![Alt text](screenshots/2.png?raw=true "")
-![Alt text](screenshots/3.png?raw=true "")
-![Alt text](screenshots/4.png?raw=true "")
-![Alt text](screenshots/5.png?raw=true "")
-![Alt text](screenshots/6.png?raw=true "")
+![Alt text](./screenshots/1.PNG?raw=true "")
+![Alt text](./screenshots/2.PNG?raw=true "")
+![Alt text](./screenshots/3.PNG?raw=true "")
+![Alt text](./screenshots/4.PNG?raw=true "")
+![Alt text](./screenshots/5.PNG?raw=true "")
+![Alt text](./screenshots/6.PNG?raw=true "")
 ![Alt text](./screenshots/7.PNG?raw=true "")
 ![Alt text](./screenshots/8.PNG?raw=true "")
 ![Alt text](./screenshots/9.PNG?raw=true "")
 ![Alt text](./screenshots/10.PNG?raw=true "")
-![Alt text](./screenshots/11.png?raw=true "")
-![Alt text](./screenshots/12.png?raw=true "")
-![Alt text](./screenshots/13.png?raw=true "")
+![Alt text](./screenshots/11.PNG?raw=true "")
+![Alt text](./screenshots/12.PNG?raw=true "")
+![Alt text](./screenshots/13.PNG?raw=true "")
 
 - - - - -
 
