@@ -1,6 +1,6 @@
 ## Laravel Project
 
-An Online Certification Wab App built using Laravel & MySQL, Admin/Expert is able to create exams, a candidate is able to pick one of the available sessions to take the associated exam and get a certificate
+An Online Certification Web App built using Laravel & MySQL, Admin/Expert is able to create exams, a candidate is able to pick one of the available sessions to take the associated exam and get a certificate
 
 - - - - -
 
