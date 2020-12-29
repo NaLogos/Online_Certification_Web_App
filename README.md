@@ -25,7 +25,7 @@ An Online Certification Web App built using Laravel & MySQL, Admin/Expert is abl
 ## How to use
 
 - Clone the repository with __git clone__
-- Make sure the database credentials in __.env__ file are correct (Fakhreddine, Jihane, lfichier m9ad just skip this step)
+- Make sure the database credentials in __.env__ file are correct (Fakhreddine, Jihane, 9ado a new database f mysql o smiwha Online_Certification, lfichier rah m9ad bla matblo walo)
 - Run __composer update__
 - Run __composer install__
 - Run __php artisan key:generate__
